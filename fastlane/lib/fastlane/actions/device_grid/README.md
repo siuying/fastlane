@@ -53,10 +53,7 @@ Edit `fastlane/Fastfile`. Feel free to remove the auto-generated lanes. Add the 
 ```ruby
 desc "Build your app and upload it to Appetize to stream it in your browser"
 lane :upload_to_appetize do
-  import_from_git(url: "https://github.com/fastlane/fastlane",
-                 path: "fastlane/lib/fastlane/actions/device_grid/AppetizeFastfile")
-
-  build_and_upload_appetize(
+  build_and_upload_to_appetize(
     xcodebuild: {
       workspace: "YourApp.xcworkspace",
       scheme: "YourScheme"

@@ -1105,15 +1105,12 @@ Follow [this guide](https://github.com/fastlane/fastlane/blob/master/fastlane/li
 
 [Open the Guide](https://github.com/fastlane/fastlane/blob/master/fastlane/lib/fastlane/actions/device_grid/README.md)
 
-#### Manually build and upload to [Appetize.io](https://appetize.io/)
+#### Automatically build and upload to [Appetize.io](https://appetize.io/)
 
 ```ruby
 desc "Build your app and upload it to Appetize to stream it in your browser"
 lane :upload_to_appetize do
-  import_from_git(url: "https://github.com/fastlane/fastlane",
-                 path: "fastlane/lib/fastlane/actions/device_grid/AppetizeFastfile")
-
-  build_and_upload_appetize(
+  build_and_upload_to_appetize(
     xcodebuild: {
       workspace: "YourApp.xcworkspace",
       scheme: "YourScheme"
