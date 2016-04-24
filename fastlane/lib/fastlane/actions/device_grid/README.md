@@ -78,7 +78,7 @@ puts `fastlane upload_to_appetize` # this will generate and upload your ipa file
 import "https://raw.githubusercontent.com/fastlane/fastlane/master/fastlane/lib/fastlane/actions/device_grid/device_grid.rb"
 
 device_grid(
-  languages: ["en-US", "de-DE"],
+  languages: ["en", "de"],
   devices: ["iphone5s", "iphone6splus", "ipadair"]
 )
 ```
