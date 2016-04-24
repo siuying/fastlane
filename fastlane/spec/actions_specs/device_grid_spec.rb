@@ -28,7 +28,6 @@ describe Fastlane do
       dg.run(languages: ['en', 'de'], devices: ['iphone4s'])
 
       correct = File.read("spec/fixtures/device_grid_results.html")
-      puts dg.current_markdown
       expect(dg.current_markdown).to eq(correct)
       File.delete(public_key_path)
       ENV.delete("FASTLANE_DISABLE_COLORS")
