@@ -46,39 +46,34 @@ danger init
 
 Follow the `danger` guide to authenticate with GitHub
 
-### Configure [fastlane](https://fastlane.tools)
-
-Edit `fastlane/Fastfile`. Feel free to remove the auto-generated lanes. Add the following lane:
-
-```ruby
-desc "Build your app and upload it to Appetize to stream it in your browser"
-lane :upload_to_appetize do
-  build_and_upload_to_appetize(
-    xcodebuild: {
-      workspace: "YourApp.xcworkspace",
-      scheme: "YourScheme"
-    }
-  )
-end
-```
-
-Make sure to fill in your actual workspace and scheme, or replace those 2 parameters with `project: "YourApp.xcworkspace"`
-
 ### Configure `danger`
 
 Edit `Dangerfile` and replace the content with
 
 ```ruby
 puts "Running fastlane to generate and upload an ipa file..."
-puts `fastlane upload_to_appetize` # this will generate and upload your ipa file
+
+options = {
+  xcodebuild: {
+      workspace: "YourApp.xcworkspace",
+      scheme: "YourScheme"
+    }
+}
+
+require 'fastlane'
+result = Fastlane::OneOff.run(action: "build_and_upload_to_appetize",
+                          parameters: options)
 
 import "https://raw.githubusercontent.com/fastlane/fastlane/master/fastlane/lib/fastlane/actions/device_grid/device_grid.rb"
 
 device_grid(
+  public_key: result,
   languages: ["en", "de"],
   devices: ["iphone5s", "iphone6splus", "ipadair"]
 )
 ```
+
+Make sure to fill in your actual workspace and scheme, or use the `project` parameter `project: "YourApp.xcworkspace"`.
 
 ### Try it
 
