@@ -76,7 +76,7 @@ module Danger
 
         def url_for_device(str)
           str = str.to_sym
-          host = "https://raw.githubusercontent.com/fastlane/fastlane/master/fastlane/lib/fastlane/actions/device_grid/assets/"
+          host = "https://raw.githubusercontent.com/fastlane/fastlane/#{Fastlane::VERSION}/fastlane/lib/fastlane/actions/device_grid/assets/"
           return {
             iphone4s: host + "iphone4s.png",
             iphone5s: host + "iphone5s.png",
