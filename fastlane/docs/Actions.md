@@ -106,7 +106,7 @@ gradle(
 )
 ```
 
-In case of an `assemble` task, the signed apk path is accessible in: `Actions.lane_context[Actions::SharedValues::GRADLE_APK_OUTPUT_PATH]`
+In case of an `assemble` task, the signed apk path is accessible in: `lane_context[Actions::SharedValues::GRADLE_APK_OUTPUT_PATH]`
 
 
 You can pass [gradle properties](https://docs.gradle.org/current/userguide/build_environment.html):
