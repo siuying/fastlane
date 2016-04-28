@@ -1142,7 +1142,7 @@ appetize(
   api_token: 'yourapitoken' # get it from https://appetize.io/docs#request-api-token
 )
 
-url = appetize_viewing_url_generator(scale: "75", color: "black")
+url = appetize_viewing_url_generator(scale: "75", color: "black", public_key: "123123")
 UI.message("Generated URL: #{url}")
 ```
 

@@ -48,7 +48,7 @@ module Fastlane
                                        description: "Public key of the app you wish to update",
                                        is_string: true,
                                        default_value: Actions.lane_context[SharedValues::APPETIZE_PUBLIC_KEY],
-                                       optional: true,
+                                       optional: false,
                                        verify_block: proc do |value|
                                          if value.start_with?("private_")
                                            UI.user_error!("You provided a private key to appetize, please provide the public key")
