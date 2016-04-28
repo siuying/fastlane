@@ -96,3 +96,54 @@ To do a runtime check if if the app is running on `Appetize`, just use:
 ```objective-c
 [[NSUserDefaults standardUserDefaults] objectForKey:@"isAppetize"]
 ```
+
+### Generate `appetize` stream, without the grid
+
+Add the following to your `Fastfile` to build and upload your app to `appetize`. 
+
+```ruby
+desc "Build your app and upload it to Appetize to stream it in your browser"
+lane :upload_to_appetize do
+  build_and_upload_to_appetize(
+    xcodebuild: {
+      workspace: "YourApp.xcworkspace",
+      scheme: "YourScheme"
+    }
+  )
+end
+```
+
+Run the newly created lane using
+
+```
+fastlane upload_to_appetize
+```
+
+### Manual way using `appetize_viewing_url_generator`
+
+If you want even more control over the way your app is built, you can also manually generate your `.app` and then upload it to `appetize`.
+
+Use the `appetize` action together with `appetize_viewing_url_generator`. Make sure to build with the `iphonesimulator` SDK, since `appetize` runs iOS simulators to stream your application.
+
+```ruby
+tmp_path = "/tmp/fastlane_build"
+xcodebuild(
+  workspace: "Themoji.xcworkspace",
+  sdk: "iphonesimulator",
+  scheme: "Themoji",
+  derivedDataPath: tmp_path
+)
+
+app_path = Dir[File.join(tmp_path, "**", "*.app")].last
+UI.user_error!("Couldn't find app") unless app_path
+
+zipped_ipa = zip(path: app_path, output_path: File.join(tmp_path, "Result.zip"))
+
+appetize(
+  path: zipped_ipa,
+  api_token: 'yourapitoken' # get it from https://appetize.io/docs#request-api-token
+)
+
+url = appetize_viewing_url_generator(scale: "75", color: "black", public_key: "123123")
+UI.message("Generated URL: #{url}")
+```
