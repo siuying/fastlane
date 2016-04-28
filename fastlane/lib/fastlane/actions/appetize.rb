@@ -96,7 +96,7 @@ module Fastlane
                                        end),
           FastlaneCore::ConfigItem.new(key: :url,
                                        env_name: "APPETIZE_URL",
-                                       description: "Target url of the zipped build. Either this or `path` must be specified",
+                                       description: "URL from which the ipa file can be fetched. Alternative to :path",
                                        is_string: true,
                                        optional: true),
           FastlaneCore::ConfigItem.new(key: :path,

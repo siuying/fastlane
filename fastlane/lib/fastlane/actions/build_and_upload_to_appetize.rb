@@ -17,7 +17,8 @@ module Fastlane
         zipped_ipa = Actions::ZipAction.run(path: app_path,
                                      output_path: File.join(tmp_path, "Result.zip"))
 
-        Actions::AppetizeAction.run(path: zipped_ipa)
+        Actions::AppetizeAction.run(path: zipped_ipa,
+                               api_token: params[:api_token])
 
         File.write("appetize_public_key.txt", lane_context[SharedValues::APPETIZE_PUBLIC_KEY])
         UI.success("Generated Public Key: #{lane_context[SharedValues::APPETIZE_PUBLIC_KEY]}")
@@ -49,7 +50,11 @@ module Fastlane
                                        description: "The scheme to build. Can also be passed using the `xcodebuild` parameter",
                                        type: String,
                                        short_option: '-s',
-                                       optional: true)
+                                       optional: true),
+          FastlaneCore::ConfigItem.new(key: :api_token,
+                                       env_name: "APPETIZE_API_TOKEN",
+                                       description: "Appetize.io API Token",
+                                       is_string: true)
         ]
       end
 
