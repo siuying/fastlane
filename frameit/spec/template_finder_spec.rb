@@ -2,14 +2,21 @@ require 'ostruct'
 describe Frameit do
   describe Frameit::TemplateFinder do
     describe 'it can find some screenshots' do
-      before do
+      # Prevent the tests from looking in the real home
+      # directory.
+      before(:all) do
+        @old_env_home = ENV['HOME']
         ENV['HOME'] = '/thisdirectorydoesnotexist'
+      end
+
+      after(:all) do
+        ENV['HOME'] = @old_env_home
       end
 
       def make_screenshot(overrides = {})
         defaults = {
           mac?: false,
-          color:  'silver',
+          color: 'silver',
           orientation_name: 'Horz'
         }
 
@@ -37,7 +44,7 @@ describe Frameit do
       it 'finds a horizontal iphone se' do
         screenshot = make_screenshot({
           device_name: 'iPhone-SE',
-          color:  'Silver',
+          color: 'Silver',
           orientation_name: 'Horz'
         })
         expected_result = '../frameit/spec/fixtures/mock_frames/iPhone SE/iPhone-SE-Silver-horizontal.png'
@@ -48,7 +55,7 @@ describe Frameit do
       it 'finds an iphone 5s' do
         screenshot = make_screenshot({
           device_name: 'iPhone_5s',
-          color:  'SpaceGray',
+          color: 'SpaceGray',
           orientation_name: 'Horz'
         })
         expected_result = '../frameit/spec/fixtures/mock_frames/iPhone 5s/Space Gray/iPhone_5s_Horz_SpaceGray_sRGB.png'
@@ -87,7 +94,7 @@ describe Frameit do
       it 'finds an ipad pro' do
         screenshot = make_screenshot({
           device_name: 'iPad-Pro',
-          color:  'SpaceGray',
+          color: 'SpaceGray',
           orientation_name: 'Vert'
         })
         expected_result = '../frameit/spec/fixtures/mock_frames/iPad Pro/iPad-Pro-Space-Gray-vertical.png'
@@ -98,7 +105,7 @@ describe Frameit do
       it 'warns for an iPhone-SE if there is no template' do
         screenshot = make_screenshot({
           device_name: 'iPhone-SE',
-          color:  'SpaceGray',
+          color: 'SpaceGray',
           orientation_name: 'Vert'
         })
 

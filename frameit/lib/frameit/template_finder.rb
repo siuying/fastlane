@@ -53,6 +53,8 @@ module Frameit
 
       transformer = DEVICE_TO_TRANSFORM_TYPE[screenshot.device_name]
 
+      # The "original" pattern is the type 1 transform
+      # so if we don't have something more specific, go for that
       transformer ||= Type1Transform.new(screenshot.device_name)
       filename = transformer.transform(screenshot.color, screenshot.orientation_name)
 

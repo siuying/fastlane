@@ -65,7 +65,7 @@ module Frameit
               'width' => 970
             }
           else
-            {
+            return {
               'offset' => "+177+41",
               'width' => 859
             }
