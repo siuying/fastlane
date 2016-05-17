@@ -82,7 +82,7 @@ module Frameit
           }
         when size::IOS_IPAD_PRO
           return {
-            'offset' => '+88+48',
+            'offset' => '+152+78',
             'width' => 1075
           }
         end
